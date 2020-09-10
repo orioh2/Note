@@ -1,41 +1,22 @@
-import React from 'react';
-import { TextInput, View, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import { Text, TextInput, View } from 'react-native';
 
-export default class App extends React.Component {
- constructor(props) {
-   super(props);
-   this.state = {
-     username: ''
-   };
- }
- render() {
-   return (
-     <View style={styles.container}>
+const Translator = () => {
+  const [text, setText] = useState('');
+  return (
+    <View style={{padding: 10, flex: 1, 
+    justifyContent: "center", alignItems: "center" }}>
       <TextInput
-         value={this.state.username}
-         onChangeText={(username) => 
-          this.setState({ username })}
-         placeholder={'Please Enter Username!!!'}
-         style={styles.input}
-       />
-       <Text style={{color: 'green'}}>
-         Username is : {this.state.username}</Text>
-     </View>     
-   );
- }
+        style={{height: 40}}
+        placeholder="Please Type Here !!"
+        onChangeText={text => setText(text)}
+        defaultValue={text}
+      />
+      <Text style={{padding: 10, fontSize: 24}}>
+        {text.split(' ').map((word) => word && '#')
+        .join(' ')}
+      </Text>
+    </View>
+  );
 }
-const styles = StyleSheet.create({
- container: {
-   flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center',
-   backgroundColor: '#ffffff',
- },
- input: {
-   width: 250,
-   height: 44,
-   padding: 10,
-   marginBottom: 10,
-   backgroundColor: '#ecf0f1'
- },
-});
+export default Translator;
