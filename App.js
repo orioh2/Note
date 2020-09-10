@@ -1,54 +1,38 @@
-import React, { Component } from 'react';
-import { Alert, Button, Text, View, StyleSheet } from 'react-native';
- 
-export default class App extends Component {
-  _simpleAlertHandler=()=>{
-      alert('Simple Alert');
-  }
-  _twoOptionAlertHandler=()=>{
-      Alert.alert('::: Alert :::','Two Options Alert.',
-      [
-        {text: 'Yes', onPress: () => 
-        console.log('Yes Pressed')},
-        {text: 'No', onPress: () => 
-        console.log('No Pressed'), style: 'cancel'},
-      ],
-      { cancelable: false }
-    );
-  }
-  _threeOptionAlertHandler=()=>{
-    Alert.alert('::: Alert :::','Three Options Alert.',
-      [
-        {text: 'Option', onPress: () => 
-        console.log('Option Pressed')},
-        {text: 'Yes', onPress: () => 
-        console.log('Yes Pressed')},
-        {text: 'OK', onPress: () => 
-        console.log('OK Pressed')},
-      ],
-      { cancelable: true }
-    );
-  }
+import React from 'react';
+import { Picker, View, StyleSheet, Text } from 'react-native';
+
+export default class App extends React.Component {
+  state = {choosenLabel: '', choosenindex: ''}
   render() {
     return (
-      <View style={styles.container}>       
-        <Button title='Simple Alert' 
-        onPress={this._simpleAlertHandler}/>
-        <Text/>
-        <Button title='Alert with Two Options' 
-        onPress={this._twoOptionAlertHandler}/>
-        <Text/>
-        <Button title='Alert with Three Options' 
-        onPress={this._threeOptionAlertHandler}/>
+      <View style={styles.container}>
+        <Text style = {styles.text}>{this.state.choosenLabel}</Text>
+        <Text style = {styles.text}>{this.state.choosenindex}</Text>
+        <Picker selectedValue={this.state.choosenLabel}
+          onValueChange={
+          (itemValue, itemIndex) => this.setState({
+               choosenLabel: itemValue, 
+               choosenindex:itemIndex})
+        }>
+            <Picker.Item label = "JavaScript" value = "No.1" />
+            <Picker.Item label = "TypeScript" value = "No.2" />
+            <Picker.Item label = "Angular" value = "No.3" />
+            <Picker.Item label = "React" value = "No.4" />
+            <Picker.Item label = "Vue" value = "No.5" />            
+        </Picker>        
       </View>
-    );
-  }
+    );  
+  } 
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    flexDirection: 'column'
   },
+  text: {
+      fontSize: 20,
+      alignSelf: 'center',
+   }
 });
