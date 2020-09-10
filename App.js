@@ -1,68 +1,54 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, TouchableHighlight,
-   TouchableOpacity, TouchableNativeFeedback, 
-   TouchableWithoutFeedback, View } from 'react-native';
-
-export default class Touchables extends Component {
-  _onPressButton() {
-    alert('You tapped the button!')
+import { Alert, Button, Text, View, StyleSheet } from 'react-native';
+ 
+export default class App extends Component {
+  _simpleAlertHandler=()=>{
+      alert('Simple Alert');
   }
-
-  _onLongPressButton() {
-    alert('You long-pressed the button!')
+  _twoOptionAlertHandler=()=>{
+      Alert.alert('::: Alert :::','Two Options Alert.',
+      [
+        {text: 'Yes', onPress: () => 
+        console.log('Yes Pressed')},
+        {text: 'No', onPress: () => 
+        console.log('No Pressed'), style: 'cancel'},
+      ],
+      { cancelable: false }
+    );
   }
-
+  _threeOptionAlertHandler=()=>{
+    Alert.alert('::: Alert :::','Three Options Alert.',
+      [
+        {text: 'Option', onPress: () => 
+        console.log('Option Pressed')},
+        {text: 'Yes', onPress: () => 
+        console.log('Yes Pressed')},
+        {text: 'OK', onPress: () => 
+        console.log('OK Pressed')},
+      ],
+      { cancelable: true }
+    );
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={this._onPressButton} underlayColor="white">
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>TouchableHighlight</Text>
-          </View>
-        </TouchableHighlight>
-        <TouchableOpacity onPress={this._onPressButton}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>TouchableOpacity</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableNativeFeedback
-            onPress={this._onPressButton}
-            background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>TouchableNativeFeedback {Platform.OS !== 'android' ? '(Android only)' : ''}</Text>
-          </View>
-        </TouchableNativeFeedback>
-        <TouchableWithoutFeedback
-            onPress={this._onPressButton}
-            >
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>TouchableWithoutFeedback</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableHighlight onPress={this._onPressButton} onLongPress={this._onLongPressButton} underlayColor="white">
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Touchable with Long Press</Text>
-          </View>
-        </TouchableHighlight>
+      <View style={styles.container}>       
+        <Button title='Simple Alert' 
+        onPress={this._simpleAlertHandler}/>
+        <Text/>
+        <Button title='Alert with Two Options' 
+        onPress={this._twoOptionAlertHandler}/>
+        <Text/>
+        <Button title='Alert with Three Options' 
+        onPress={this._threeOptionAlertHandler}/>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 60,
-    alignItems: 'center'
-  },
-  button: {
-    marginBottom: 30,
-    width: 260,
+    flex: 1,
     alignItems: 'center',
-    backgroundColor: '#2196F3'
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
   },
-  buttonText: {
-    textAlign: 'center',
-    padding: 20,
-    color: 'white'
-  }
 });
