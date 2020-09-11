@@ -1,49 +1,65 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { NavigationContainer } from 
+'@react-navigation/native';
+import { createStackNavigator } from 
+'@react-navigation/stack';
+import { createMaterialTopTabNavigator } from 
+'@react-navigation/material-top-tabs';
+import FirstPage from './pages/FirstPage';
+import SecondPage from './pages/SecondPage';
 
-const SecondPage = ({ navigation }) => {
+const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+
+function TabStack() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 , padding: 16}}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 25,
-              textAlign: 'center',
-              marginBottom: 16
-            }}>
-            Setting{'\n'}(You are on SecondPage)
-          </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('FirstPage')}>
-            <Text>Go to Home Tab</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={{ fontSize: 18, textAlign: 'center', color: 'grey' }}>
-        React Native Tab Navigation
-        </Text>
-        <Text
-          style={{ fontSize: 16, textAlign: 'center', color: 'grey' }}>
-          www.pwa.co.th
-        </Text>
-      </View>
-    </SafeAreaView>
+    <Tab.Navigator
+      initialRouteName="Feed"
+      tabBarOptions={{
+        activeTintColor: '#FFFFFF',
+        inactiveTintColor: '#F8F8F8',
+        style: {
+          backgroundColor: '#633689',
+        },
+        labelStyle: {
+          textAlign: 'center',
+        },
+        indicatorStyle: {
+          borderBottomColor: '#87B56A',
+          borderBottomWidth: 2,
+        },
+      }}>
+      <Tab.Screen
+        name="FirstPage"
+        component={FirstPage}
+        options={{
+          tabBarLabel: 'Home',
+        }}  />
+      <Tab.Screen
+        name="SecondPage"
+        component={SecondPage}
+        options={{
+          tabBarLabel: 'Setting',
+        }} />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    width: 300,
-    marginTop: 16,
-  },
-});
-export default SecondPage;
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Settings"
+        screenOptions={{
+          headerStyle: { backgroundColor: '#633689' },
+          headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: 'bold' }
+        }}>
+        <Stack.Screen name="TabStack" component={TabStack}
+         options={{ title: 'Tab Stack' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+export default App;
