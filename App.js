@@ -1,4 +1,27 @@
-npm install react-native-sqlite-storage --save
-npm install @react-navigation/native --save
-npm install @react-navigation/stack --save
-npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view --save
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+
+const Mybutton = (props) => {
+  return (
+    <TouchableOpacity style={styles.button} onPress={props.customClick}>
+      <Text style={styles.text}>{props.title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#f05555',
+    color: '#ffffff',
+    padding: 10,
+    marginTop: 16,
+    marginLeft: 35,
+    marginRight: 35,
+  },
+  text: {
+    color: '#ffffff',
+  },
+});
+
+export default Mybutton;
